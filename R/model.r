@@ -26,7 +26,7 @@ if (!interactive()) {
   }
 } else {
   opts <- list(
-    type = "contacts",
+    type = "conversational",
     model = "random"
   )
 }
@@ -51,8 +51,8 @@ dt_back_contacts <- contacts |>
 colnames(dt_back_contacts) <- gsub("\\.", "_", colnames(dt_back_contacts))
 
 participants <-
-  data.frame(global_id=unique(dt_back_contacts$global_id)) |>
-  mutate(new_participant_id=1:n())
+  data.frame(global_id = unique(dt_back_contacts$global_id)) |>
+  mutate(new_participant_id = 1:n())
 
 contacts <- dt_back_contacts |>
   left_join(participants, by = "global_id") |>
@@ -65,13 +65,13 @@ options <- list(
   data = contacts,
   chains = 2,
   cores = 2,
-  iter = 4000
+  iter = 2000
 )
 
 variables <- c(
   "agegroup", "weekday", "season_month", "month_name", "gender", "nb_household",
   "nb_household_children", "main_activity", "occupation", "highest_education",
-  "current_symptoms", "urban_rural", "work_urban_rural", "enclosed_indoor_space",
+  "current_ili", "urban_rural", "work_urban_rural", "enclosed_indoor_space",
   "public_transport"
 )
 
