@@ -86,7 +86,7 @@ if (model == "random") {
 }
 
 options[["formula"]] <- list(
-  formula = formula(paste(type, formula, sep = "~"))
+  formula = formula(paste("contacts", formula, sep = "~"))
 )
 
 fit <- do.call(brm, options)
