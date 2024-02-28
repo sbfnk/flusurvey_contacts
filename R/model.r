@@ -18,17 +18,19 @@ Options:
   -h --help                            print this help message
 "
 
-if (!interactive()) {
+if (interactive()) {
+  if (!exists("opts")) {
+    opts <- list(
+      type = "conversational",
+      model = "random"
+    )
+  }
+} else {
   opts <- docopt(doc)
   if (opts[["help"]]) {
     print(opts)
     exit()
   }
-} else {
-  opts <- list(
-    type = "conversational",
-    model = "random"
-  )
 }
 
 type <- opts[["type"]]
