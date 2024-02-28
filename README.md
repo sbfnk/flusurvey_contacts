@@ -10,7 +10,7 @@ renv::restore() ## install required packages
 Run the baseline model (intercept only):
 
 ``` r
-source("R/model.R")
+source("R/model.r")
 ```
 
 To run any other models, set `opts()`, e.g.
@@ -20,5 +20,5 @@ opts <- list(
   type = "physical",
   model = "individual"
 )
-source("R/model.R")
+source("R/model.r")
 ```
