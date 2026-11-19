@@ -1,0 +1,26 @@
+name: PR conventions
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  intent-or-linked-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for an intent line or a linked issue
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          # Drop HTML comments so the template's own example line does not count.
+          BODY=$(printf '%s\n' "$BODY" | perl -0pe 's/<!--.*?-->//gs')
+          if echo "$BODY" | grep -qiE '^[> [:space:]]*\**intent\**[^:]*:'; then
+            echo "Found an intent line."
+            exit 0
+          fi
+          if echo "$BODY" | grep -qiE '(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)[[:space:]]+#[0-9]+'; then
+            echo "Found a linked issue."
+            exit 0
+          fi
+          echo "This pull request has neither an intent line (see AGENTS.md) nor a reference to an issue it closes."
+          exit 1

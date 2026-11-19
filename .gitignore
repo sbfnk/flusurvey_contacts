@@ -1,0 +1,11 @@
+# participant data and model fits never go in the repository
+data/
+res/
+
+# rendered output
+/*.html
+*_cache/
+*_files/
+.Rproj.user
+.Rhistory
+*.swp
